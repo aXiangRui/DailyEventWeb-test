@@ -1,0 +1,123 @@
+﻿<!-- pages/taskList.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>我的任务列表</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/js/main.js">
+    <link rel="stylesheet" href="../static/js/calculate.js">
+    <script src="../static/js/main.js" defer></script>
+    <script src="../static/js/calculate.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>我的任务列表</h1>
+        <p class="date">今天的日期   </p>
+        <p id="todayDate" class="date"></p>
+        <br>
+        <button onclick="toggleSubmitBox()" class="btn">提交新内容</button>
+        <button onclick="toggleAddPartner()" class="btn">合并日历</button>
+        <button id="themeToggle" class="btn">切换风格</button>
+        <div id="weekNavContainer" >
+  <!-- JS会自动把按钮插入到这里 -->
+</div>
+        <form method="post" action="http://dailytimelist.com:80/addtask">
+            <div id="submitBox" class="submitBox">
+                <p>请完善以下内容</p>
+                <label>开始日期:</label>
+                <br>
+                    <select name="year" id="year" required class="date">
+                        <!-- 生成近5年的选项 -->
+                    </select>
+                    <select name="month" id="month" required class="date">
+                        <!-- 生成1-12月的选项 -->
+                    </select>
+                    <select name="day" id="day" required class="date">
+                        <!-- 生成1-31天的选项，会根据月份动态调整 -->
+                    </select>
+                    <input type="hidden" name="date" id="date"> <!-- 用于存储合并后的日期 -->
+                <div class="time-group">
+                    <label>开始时间：</label>
+                    <br>
+                    <select class="time-select" id="startHour" name="startHour">
+                        <!-- 小时选项将通过JS生成 -->
+                    </select>
+                    <span>:</span>
+                    <select class="time-select" id="startMinute" name="startMinute">
+                        <!-- 分钟选项将通过JS生成 -->
+                    </select>
+                    <input type="hidden" id="starttime" name="starttime">
+                </div>
+                <div class="time-group">
+                    <label>结束时间：</label>
+                    <br>
+                    <select class="time-select" id="endHour" name="endHour">
+                        <!-- 小时选项将通过JS生成 -->
+                    </select>
+                    <span>:</span>
+                    <select class="time-select" id="endMinute" name="endMinute">
+                        <!-- 分钟选项将通过JS生成 -->
+                    </select>
+                    <input type="hidden" id="endtime" name="endtime">
+                </div>
+                <br>
+                <label>输入标题:</label><input type="text" name="title" placeholder="标题">
+                <br>
+                <div class="input-contain">
+                    <label>记录备注:</label><textarea name="note" placeholder="备注内容" class="notetext"></textarea>
+                    <br>
+                    <input type="submit" class="btn" value="点此提交">
+                </div>
+                
+        </div>
+        </form>
+        <form method="post" action="">
+                <div id="addPartner" class="addPartner">
+                <p>请完善以下内容</p>
+                <label>输入对方ID</label><input type="text" name="TaskID" placeholder="输入对方ID">
+        </div>
+        </form>
+        <!-- 星期 -->
+        <div class="weekview">
+            <div class="weekday">时  间</div>
+            <div class="weekday">星期一</div>
+            <div class="weekday">星期二</div>
+            <div class="weekday">星期三</div>
+            <div class="weekday">星期四</div>
+            <div class="weekday">星期五</div>
+            <div class="weekday">星期六</div>
+            <div class="weekday">星期日</div>          
+        </div>
+        <div class="relative-line"></div>
+        <div class="task-container"></div>
+        <div class="relative-column"></div>
+        <div class="time-container"></div>
+
+               
+        <!-- 表格容器：数据会动态插入这里 -->
+        <table id="taskTable">
+            <thead>
+                <tr>
+                    <!-- 表头对应6个字段 -->
+                    <th>用户ID</th>
+                    <th>任务ID</th>
+                    <th>开始时间</th>
+                    <th>结束时间</th>
+                    <th>日期</th>
+                    <th>标题</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody id="taskBody">
+                <!-- 数据行将通过JS动态生成 -->
+            </tbody>
+        </table>
+        <!-- 无数据时显示 -->
+        <div id="emptyTip" class="empty提示" style="display: none;">
+            暂无任务数据
+        </div>
+    </div>
+    <p class="tail">陕ICP备2025074311号</p>
+</body>
+</html>
